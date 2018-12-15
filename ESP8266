@@ -1,0 +1,75 @@
+#define SSID        "HUAWEI nova 3"
+
+#define PASSWORD    "1234567890"
+
+#define HOST_NAME   "api.heclouds.com"
+
+#define DEVICEID    "505211135" //OneNet上的设备ID
+
+#define PROJECTID   "192228" //OneNet上的产品ID
+
+#define HOST_PORT   (80)
+
+String apiKey="duquE6ZDEQggZLD50TdBTfQdS3o=";//与你的设备绑定的APIKey
+
+#define INTERVAL_SENSOR   17000             //定义传感器采样时间间隔  597000
+#define INTERVAL_NET      17000             //定义发送时间
+
+//传感器部分================================
+
+#include <Wire.h>                              //调用库
+
+#include <ESP8266.h>
+
+#include <I2Cdev.h>                              //调用库
+
+#include <Microduino_SHT2x.h>
+
+#define  sensorPin_1  A0
+
+#define IDLE_TIMEOUT_MS  3000      // Amount of time to wait (in milliseconds) with no data
+
+// received before closing the connection.  If you know the server
+
+// you're accessing is quick to respond, you can reduce this value.
+
+//WEBSITE
+
+char buf[10];
+
+#define INTERVAL_sensor 2000
+
+unsigned long sensorlastTime = millis();
+
+float beatOLED;
+
+#define INTERVAL_OLED 1000
+String mCottenData;
+
+String jsonToSend;
+//3,传感器值的设置
+
+float sensor_beat;                     //心率数据监测
+char  sensor_beat_c[7] ;    //换成char数组传输
+
+#include <SoftwareSerial.h>
+
+#define EspSerial mySerial
+
+#define UARTSPEED  9600
+
+SoftwareSerial mySerial(2, 3); /* RX:D3, TX:D2 */
+
+ESP8266 wifi(&EspSerial);
+
+//ESP8266 wifi(Serial1);                              //定义一个ESP8266（wifi）的对象
+
+unsigned long net_time1 = millis();                          //数据上传服务器时间
+
+unsigned long sensor_time = millis();                        //传感器采样时间计时器
+
+//int SensorData;                              //用于存储传感器数据
+
+String postString;                              //用于存储发送数据的字符串
+
+//String jsonToSend;                              //用于存储发送的json格式参数
